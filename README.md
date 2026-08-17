@@ -24,7 +24,7 @@ Part 2: Build a predictive model using the engineered dataset.
 ## M7: Project Summary ##
 This project builds a daily Citi Bike ridership dataset by combining NYC trip data with NOAA GSOD daily weather observations. The goal was to engineer a clean modeling dataset, diagnose data quality issues, build a linear regression model, and evaluate how well weather and calendar features explain daily ridership.
 
-                            ##Data Quality Issues & How They Were Handled
+                            Data Quality Issues & How They Were Handled
 The NOAA weather data contained several inconsistencies that required cleaning before modeling. The most significant issue was the presence of sentinel values, including a precipitation value of 99.99, which is not physically realistic and would distort a linear model. Precipitation was also heavily zero inflated, with most days reporting no rainfall. To address this, I removed sentinel values and later capped precipitation at 5 inches, since NOAA GSOD rarely reports more than ~5 inches of daily rainfall and the dataset included a realistic maximum of 4.88 inches. This prevented extreme outliers from influencing the model.
 
 On the ridership side, I aggregated millions of trip records into daily counts and ensured that each date aligned correctly with its corresponding weather observations. Missing weather days were handled so the dataset remained consistent and complete.
@@ -38,12 +38,12 @@ I engineered several features to capture meaningful patterns in ridership:
 
 These features were chosen based on EDA findings showing strong seasonal patterns, weekend effects, and upward ridership trends over time.
 
-                                      ## Model Performance 
+                                        Model Performance 
 The baseline linear regression model achieved a test R^2 of 0.726, meaning it explains about 73% of the variance in daily ridership. Residual diagnostics showed no major structural issues: residuals were centered around zero, with no long-term drift and no nonlinear patterns. The largest residual spikes corresponded to holidays, storms, outages, or major NYC events that the model cannot capture with the available features.
 
 After capping precipitation at 5 inches, the improved model achieved a slightly higher test R^2 of 0.733, indicating a modest reduction in noise from extreme values.
 
-                              ## Biggest Weakness & Needed Future Data 
+                              Biggest Weakness & Needed Future Data 
 The model’s biggest weakness is its inability to capture special-event days—holidays, extreme weather events, system outages, and large-scale city events that dramatically affect ridership. These anomalies create large residual spikes that a simple linear model cannot explain. To improve future versions, the dataset should include:
 •	Holiday indicators
 •	Severe weather alerts
