@@ -30,25 +30,27 @@ The NOAA weather data contained several inconsistencies that required cleaning b
 On the ridership side, I aggregated millions of trip records into daily counts and ensured that each date aligned correctly with its corresponding weather observations. Missing weather days were handled so the dataset remained consistent and complete.
 
 I engineered several features to capture meaningful patterns in ridership:
+
 •	Temperature features (average, max, min) to represent comfort and seasonal effects
 •	Wind speed and precipitation to capture additional weather impacts
 •	Day-of-week encoding to model weekday vs. weekend behavior
-•	Month to capture seasonal variation
 •	days_since_launch, a trend feature to represent long-term system growth
 
 These features were chosen based on EDA findings showing strong seasonal patterns, weekend effects, and upward ridership trends over time.
 
                                         Model Performance 
-The baseline linear regression model achieved a test R^2 of 0.726, meaning it explains about 73% of the variance in daily ridership. Residual diagnostics showed no major structural issues: residuals were centered around zero, with no long-term drift and no nonlinear patterns. The largest residual spikes corresponded to holidays, storms, outages, or major NYC events that the model cannot capture with the available features.
+The baseline linear regression model achieved a test R^2 of 0.726, meaning it explains about 73% of the variance in daily ridership. Residual diagnostics showed no major structural issues: residuals were centered around zero, with no long-term drift and no nonlinear patterns. The largest residual spikes corresponded to holidays, storms, outages, or potentially major NYC events that the model cannot capture with the available features.
 
 After capping precipitation at 5 inches, the improved model achieved a slightly higher test R^2 of 0.733, indicating a modest reduction in noise from extreme values.
 
                               Biggest Weakness & Needed Future Data 
 The model’s biggest weakness is its inability to capture special-event days—holidays, extreme weather events, system outages, and large-scale city events that dramatically affect ridership. These anomalies create large residual spikes that a simple linear model cannot explain. To improve future versions, the dataset should include:
+
 •	Holiday indicators
 •	Severe weather alerts
 •	Snowfall and storm severity
 •	System outage logs
 •	Major NYC event calendars
+
 Adding these features would significantly improve predictive accuracy and reduce unexplained variability.
 
